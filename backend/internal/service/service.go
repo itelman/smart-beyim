@@ -19,6 +19,16 @@ func NewService(repo *repo.Sqlite, ai *AI.ChatGPT) *Service {
 		ai:   ai,
 	}
 }
+
+func (s *Service) GetMessages(userID int) ([]openai.ChatCompletionMessage, error) {
+	req, err := s.repo.GetRequestByUserID(userID)
+	if err != nil {
+		return nil, err
+	}
+
+	return req.Messages, nil
+}
+
 func (s *Service) StartMessage(userID int) error {
 	// TODO: get all test results to promt
 	req := s.ai.Start("start messaging")

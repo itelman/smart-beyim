@@ -2,9 +2,11 @@ package main
 
 import (
 	"log/slog"
+	"net/http"
 	"os"
 	AI "smart-beyim/internal/AI"
 	"smart-beyim/internal/config"
+	"smart-beyim/internal/handlers"
 	"smart-beyim/internal/repo"
 	"smart-beyim/internal/service"
 	"smart-beyim/lib/logger/sl"
@@ -37,9 +39,24 @@ func main() {
 	log.Info("ai is started")
 
 	s := service.NewService(storage, ai)
-	log.Info("hell yes")
+	log.Info("starting servic")
 
-	_ = s
+	h := handlers.NewHandler(s, log)
+
+	log.Info("starting server", slog.String("addres", cfg.Address))
+
+	srv := &http.Server{
+		Addr:         cfg.Address,
+		Handler:      h.Router(),
+		ReadTimeout:  cfg.HTTPServer.Timeout,
+		WriteTimeout: cfg.HTTPServer.Timeout,
+		IdleTimeout:  cfg.HTTPServer.IdleTimeout,
+	}
+
+	if err := srv.ListenAndServe(); err != nil {
+		log.Error("failed to run server", err)
+	}
+	log.Error("stopped server")
 
 	// // s.StartMessage(1)
 	// answer, err := s.SendMessage(1, "can you repeat what you say")

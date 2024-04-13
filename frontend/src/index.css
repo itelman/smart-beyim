@@ -50,7 +50,7 @@ input:-webkit-autofill:active {
   }
 
   .leftsidebar {
-    @apply sticky left-0 top-0 z-20  hidden h-screen w-fit flex-col  justify-between gap-10 overflow-auto px-[18px]  pb-[37px] pt-[14px] sm:flex 2xl:w-[296px];
+    @apply sticky left-0 top-0 z-20  hidden h-screen w-fit flex-col  justify-between gap-10 overflow-auto px-[18px]  pb-[37px] pt-[24px] sm:flex 2xl:w-[296px];
   }
 
   .leftsidebar_link {

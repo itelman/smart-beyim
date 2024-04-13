@@ -3,8 +3,10 @@ package main
 import (
 	"log/slog"
 	"os"
+	AI "smart-beyim/internal/AI"
 	"smart-beyim/internal/config"
 	"smart-beyim/internal/repo"
+	"smart-beyim/internal/service"
 	"smart-beyim/lib/logger/sl"
 )
 
@@ -29,9 +31,23 @@ func main() {
 		log.Error("failed init database", sl.Err(err))
 		os.Exit(1)
 	}
-	_ = storage
 	log.Info("database is started")
 
+	ai := AI.New(cfg.ApiKey)
+	log.Info("ai is started")
+
+	s := service.NewService(storage, ai)
+	log.Info("hell yes")
+
+	_ = s
+
+	// // s.StartMessage(1)
+	// answer, err := s.SendMessage(1, "can you repeat what you say")
+	// if err != nil {
+	// 	log.Error("failed send message", sl.Err(err))
+	// 	os.Exit(1)
+	// }
+	// fmt.Println(answer)
 }
 
 func setupLogger(env string) *slog.Logger {

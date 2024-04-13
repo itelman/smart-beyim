@@ -27,9 +27,10 @@ func (h *Handler) Router() *chi.Mux {
 	router.Use(middleware.Logger)
 	router.Use(middleware.Recoverer)
 	router.Use(middleware.URLFormat)
+
+	router.Post("/chat", h.chatPost)
 	router.Get("/chat", h.chatGET)
 
 	router.Get("/", h.home)
-
 	return router
 }

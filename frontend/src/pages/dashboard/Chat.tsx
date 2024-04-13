@@ -1,27 +1,22 @@
 import { useState, useEffect, useRef } from "react";
 import { FaEllipsisV, FaPaperPlane } from "react-icons/fa";
 import axios from "axios";
-import { staticMessages, Message } from "../../components/UI/assets";
+import {  Message } from "../../components/UI/assets";
 
 interface MessageBlockProps {
   message: Message;
 }
 
 const MessageBlock = ({ message }: MessageBlockProps) => {
-  const isUser = message.sender._id === 0;
+  const isUser = message.role === "user";
   return (
     <div className={`flex w-full ${isUser ? "justify-end" : "justify-start"}`}>
       <div className={`flex w-fit flex-col `}>
         <div
           className={`rounded bg-gray-200 p-5 ${isUser ? "bg-primary-1000 text-primary-50" : "text-black bg-white"}`}
         >
-          {message.text}
+          {message.content}
         </div>
-        <span
-          className={`text-sm  text-secondary-400 ${isUser ? "text-right" : "text-left"}`}
-        >
-          {message?.date.split("T")[1].slice(0, 5)}
-        </span>
       </div>
     </div>
   );
@@ -32,79 +27,83 @@ const Chat = ({ pageTitle }: { pageTitle: string }) => {
     document.title = pageTitle;
   }, [pageTitle]);
 
-  const [messages, setMessages] = useState([...staticMessages]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const dummyMessageLastRef = useRef<
     React.LegacyRef<HTMLDivElement> | undefined
   >(null);
   const [message, setMessage] = useState("");
 
-  const getMessages = async () => {};
+  const getMessages = async () => {
+    try {
+      const responce = await axios.get("http://localhost:8082/chat?user_id=1")
+      const messages = responce.data.Messages
+
+
+      setMessages(messages)
+    } catch (error:any) {
+      console.log(error.message)
+    }
+  };
+
+
 
   const scrollToBottom = () => {
     if (!dummyMessageLastRef.current) return;
     dummyMessageLastRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
-  const storeMessageOnDb = () => {
-    setMessages((prev) => [
-      ...prev,
-      { text: message, date: new Date().toISOString(), sender: { _id: 0 } },
-    ]);
+  const storeMessageOnDb = async () => {
+    try {
+      const responce = await axios.post("http://localhost:8082/chat", {
+        content:message,
+        user_id:"1"
+    })
+
+    const data = responce.data
+    
+
+    if (data.answer) {
+
+      console.log(data)
+
+
+      const answer = data.answer as string
+
+      const newMessage :Message = {
+        role:"assistant",
+        content:answer
+      }
+      setMessages((prev)=>[...prev, newMessage ])
+    }    
+
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   const handleSendMessage = () => {
+    setMessages((prev)=>[...prev, {
+      role:"user",
+      content:message
+    }])
     storeMessageOnDb();
     setMessage("");
     scrollToBottom();
   };
 
-  const getDateToDisplay = (date: any) => {
-    const today = new Date();
-    const messageDate = new Date(date);
-    if (
-      today.getFullYear() === messageDate.getFullYear() &&
-      today.getMonth() === messageDate.getMonth() &&
-      today.getDate() === messageDate.getDate()
-    ) {
-      return "Today";
-    }
-    const messageDateDay = messageDate.getDate();
-    const messageDateMonth = messageDate.toLocaleString("default", {
-      month: "long",
-    });
-    return messageDateDay + " " + messageDateMonth;
-  };
-  const getChatBodyContent = () => {
-    let prevDay = new Date("12/10/2022").getDay();
-    const content = messages.map((message) => {
-      if (prevDay !== new Date(message.date).getDay()) {
-        prevDay = new Date(message.date).getDay();
-        return (
-          <>
-            <div className="my-5 flex items-center justify-center gap-2.5">
-              <div className="h-px flex-grow bg-gray-300"></div>
-              <span className="text-lg whitespace-nowrap text-gray-600">
-                {getDateToDisplay(message.date)}
-              </span>
-              <div className="h-px flex-grow bg-gray-300"></div>
-            </div>
-            <MessageBlock message={message} />
-          </>
-        );
-      } else if (prevDay === new Date(message.date).getDay()) {
-        prevDay = new Date(message.date).getDay();
+  useEffect(()=>{
+    getMessages()
+  },[])
 
-        return <MessageBlock message={message} />;
-      }
-    });
-    return content;
-  };
+  console.log(messages)
 
   return (
     <>
       <div className="relative box-border flex h-full flex-col">
         <div className="flex flex-grow flex-col gap-5  p-8  ">
-          {getChatBodyContent()}
+          {messages.map((message)=>
+          <MessageBlock message={message} />
+          )}
           <div ref={dummyMessageLastRef}></div>
         </div>
 

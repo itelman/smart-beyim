@@ -54,3 +54,14 @@ func (s *Sqlite) DeleteRequestsByUserID(userID int) (int64, error) {
 
 	return rowsAffected, nil
 }
+
+func (s *Sqlite) UpdateRequestDataByUserID(userID int, newRequestData string) error {
+	const op = "repo.Sqlite.UpdateRequestDataByUserID"
+
+	_, err := s.db.Exec("UPDATE chat_requests SET request_data = ? WHERE user_id = ?", newRequestData, userID)
+	if err != nil {
+		return fmt.Errorf("%s: %w", op, err)
+	}
+
+	return nil
+}

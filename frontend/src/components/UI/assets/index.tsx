@@ -256,78 +256,75 @@ export const CustomBarChartData: ICustomBarChartData[] = [
 ];
 
 export type Message = {
-  date: string;
-  text: string;
-  sender: {
-    _id: number;
-  };
+  role: string;
+  content: string;
 };
 
-export const staticMessages: Message[] = [
-  {
-    date: "2023-04-13T09:29:39.088Z",
-    text: "I want to know more about the product",
-    sender: {
-      _id: 1,
-    },
-  },
-  {
-    date: "2023-04-13T09:29:39.088Z",
-    text: "I want to know more about the product",
-    sender: {
-      _id: 0,
-    },
-  },
-  {
-    date: "2023-04-13T09:29:39.088Z",
-    text: "I want to know more about the product",
-    sender: {
-      _id: 1,
-    },
-  },
-  {
-    date: "2023-04-13T09:29:39.088Z",
-    text: "I want to know more about the product",
-    sender: {
-      _id: 0,
-    },
-  },
-  {
-    date: "2023-04-13T09:29:39.088Z",
-    text: "I want to know more about the product",
-    sender: {
-      _id: 1,
-    },
-  },
-  {
-    date: "2023-04-13T09:29:39.088Z",
-    text: "I want to know more about the product",
-    sender: {
-      _id: 0,
-    },
-  },
-  {
-    date: "2023-04-13T09:29:39.088Z",
-    text: "I want to know more about the product",
-    sender: {
-      _id: 1,
-    },
-  },
-  {
-    date: "2023-04-13T09:29:39.088Z",
-    text: "I want to know more about the product",
-    sender: {
-      _id: 0,
-    },
-  },
-  {
-    date: "2023-04-13T09:29:39.088Z",
-    text: "I want to know more about the product",
-    sender: {
-      _id: 1,
-    },
-  },
-];
+// export const staticMessages: Message[] = [
+//   {
+//     date: "2023-04-13T09:29:39.088Z",
+//     text: "I want to know more about the product",
+//     sender: {
+//       _id: 1,
+//     },
+//   },
+//   {
+//     date: "2023-04-13T09:29:39.088Z",
+//     text: "I want to know more about the product",
+//     sender: {
+//       _id: 0,
+//     },
+//   },
+//   {
+//     date: "2023-04-13T09:29:39.088Z",
+//     text: "I want to know more about the product",
+//     sender: {
+//       _id: 1,
+//     },
+//   },
+//   {
+//     date: "2023-04-13T09:29:39.088Z",
+//     text: "I want to know more about the product",
+//     sender: {
+//       _id: 0,
+//     },
+//   },
+//   {
+//     date: "2023-04-13T09:29:39.088Z",
+//     text: "I want to know more about the product",
+//     sender: {
+//       _id: 1,
+//     },
+//   },
+//   {
+//     date: "2023-04-13T09:29:39.088Z",
+//     text: "I want to know more about the product",
+//     sender: {
+//       _id: 0,
+//     },
+//   },
+//   {
+//     date: "2023-04-13T09:29:39.088Z",
+//     text: "I want to know more about the product",
+//     sender: {
+//       _id: 1,
+//     },
+//   },
+//   {
+//     date: "2023-04-13T09:29:39.088Z",
+//     text: "I want to know more about the product",
+//     sender: {
+//       _id: 0,
+//     },
+//   },
+//   {
+//     date: "2023-04-13T09:29:39.088Z",
+//     text: "I want to know more about the product",
+//     sender: {
+//       _id: 1,
+//     },
+//   },
+// ];
 
 export interface ICustomRadarChartData {
   subject: string;

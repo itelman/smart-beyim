@@ -33,7 +33,7 @@ func (h *Handler) chatGET(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	h.log.Debug("just messages", slog.Any("messages", messages))
+	// h.log.Debug("just messages", slog.Any("messages", messages))
 
 	responseOKChatGet(w, r, messages[1:])
 }
@@ -80,7 +80,7 @@ func (h *Handler) chatPost(w http.ResponseWriter, r *http.Request) {
 		render.JSON(w, r, resp.Error("failed send message ai"))
 		return
 	}
-
+	h.log.Info("send response", slog.Any("response", answer))
 	responseOKChatPost(w, r, answer)
 }
 

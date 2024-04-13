@@ -51,6 +51,7 @@ func NewDB(storagePath string) (*Sqlite, error) {
 		`CREATE TABLE IF NOT EXISTS ielts (
             id INTEGER PRIMARY KEY,
             user_id INTEGER,
+			time_passed TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 			reading_id INTEGER,
 			listening_id INTEGER,
 			writing_id INTEGER,
@@ -62,7 +63,7 @@ func NewDB(storagePath string) (*Sqlite, error) {
 			FOREIGN KEY (speaking_id) REFERENCES tests(id)
         );`,
 		`CREATE TABLE IF NOT EXISTS chat_requests (
-			id INTEGER PRIMARY KEY AUTOINCREMENT,
+			id INTEGER PRIMARY KEY,
 			user_id INTEGER UNIQUE,
 			request_data TEXT NOT NULL,
 			FOREIGN KEY (user_id) REFERENCES users(id)			

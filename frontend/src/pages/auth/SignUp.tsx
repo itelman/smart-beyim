@@ -61,7 +61,7 @@ const SignIn = () => {
             "username",
             {
               type: errorStatusCode,
-              message: "Пользователь с данным именем уже существует",
+              message: "User with this username already exists",
             },
             { shouldFocus: true },
           );
@@ -75,22 +75,22 @@ const SignIn = () => {
     <>
       <FormHeader>
         <p className="mb-2 font-headings text-subHeading3 font-medium">
-          Начните с <span className="text-primary-1000">Pro Skill</span>
+          Learn with <span className="text-primary-1000">Beyim Analytics</span>
         </p>
         <p className="font-sans text-p2 font-normal text-black-300">
-          Создайте свой аккаунт бесплатно
+          Create an account to start learning
         </p>
       </FormHeader>
 
       <FormBody
-        buttonText="Создать аккаунт"
+        buttonText="Sign Up"
         isDirty={isDirty}
         isSubmitting={isSubmitting}
         onSubmit={handleSubmit(onSubmitForm)}
       >
         <div className="mb-3 flex flex-col gap-[25px]">
           <InputForm
-            placeholder="Введите ваше имя пользователя"
+            placeholder="Write your username"
             required
             type="text"
             errorMessage={errors.username && errors.username?.message}
@@ -98,7 +98,7 @@ const SignIn = () => {
             {...register("username")}
           />
           <InputForm
-            placeholder="Введите вашу почту"
+            placeholder="Write your email"
             required
             type="email"
             errorMessage={errors.email && errors.email?.message}
@@ -107,7 +107,7 @@ const SignIn = () => {
           />
 
           <InputForm
-            placeholder="Введите ваш пароль"
+            placeholder="Write your password"
             required
             type="password"
             errorMessage={errors.password && errors.password?.message}
@@ -127,15 +127,15 @@ const SignIn = () => {
         </div>
 
         <p className="flex cursor-pointer justify-end pb-12 font-sans text-p2 text-primary-1000">
-          Востановить аккаунт
+          Forgot your password?
         </p>
         <p className="pb-12 font-sans font-normal text-black-300">
-          Уже есть аккаунт?{" "}
+          Already have an account?{" "}
           <NavLink
             to="/auth/sign-in"
             className="cursor-pointer text-primary-1000"
           >
-            Войти
+            Login
           </NavLink>
         </p>
       </FormBody>

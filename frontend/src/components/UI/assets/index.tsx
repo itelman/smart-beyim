@@ -11,19 +11,19 @@ export interface IDashboardNavigationLinks {
 
 export const DashboardNavigationLinks: IDashboardNavigationLinks[] = [
   {
-    label: "Главная",
+    label: "Dashboard",
     iconName: "CategorySvg",
     activeIconName: "CategoryActiveSvg",
     url: "/dashboard",
   },
   {
-    label: "Доходы",
+    label: "Results table",
     iconName: "BagSvg",
     activeIconName: "BagActiveSvg",
     url: "/dashboard/revenue-management",
   },
   {
-    label: "Чат",
+    label: "Consultancy",
     iconName: "CategorySvg",
     activeIconName: "CategoryActiveSvg",
     url: "/dashboard/chat",

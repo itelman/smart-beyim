@@ -57,11 +57,11 @@ const CustomLineChart: React.FC<ICustomLineChartProps> = ({
         <p className="text-subHeading3  font-semibold">Results</p>
         <div className="relative">
           <div
-            className={`flex cursor-pointer items-center gap-[7px] text-black-100 `}
+            className={`flex cursor-pointer items-center gap-[7px] rounded-md border-2 border-[#D5D5D5] bg-[#FCFDFD] px-3 py-2 text-secondary-700 `}
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             onBlur={() => setIsDropdownOpen(false)}
           >
-            <p className="text-label1">{currentSkill}</p>
+            <p className="text-p2">{currentSkill}</p>
             <FeatherIcon
               icon="chevron-down"
               className="text-label1"

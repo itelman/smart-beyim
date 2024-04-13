@@ -54,11 +54,11 @@ const SignIn = () => {
         } else {
           setError("password", {
             type: "error",
-            message: "Что-то пошло не так",
+            message: "Something went wrong",
           });
           setError("username", {
             type: "error",
-            message: "Что-то пошло не так",
+            message: "Something went wrong",
           });
         }
       }
@@ -82,10 +82,10 @@ const SignIn = () => {
     <>
       <FormHeader>
         <p className="mb-2 font-headings text-subHeading3 font-medium">
-          Добро пожаловать!
+          Welcome back!
         </p>
         <p className="font-sans text-p2 font-normal text-black-300">
-          Войдите в ваш аккаунт
+          Login to your account
         </p>
       </FormHeader>
 
@@ -97,7 +97,7 @@ const SignIn = () => {
       >
         <div className="mb-3 flex flex-col gap-[25px]">
           <InputForm
-            placeholder="Введите имя пользователя"
+            placeholder="Write your username"
             type="text"
             errorMessage={errors.username?.message}
             leftIconName="UserSvg"
@@ -105,7 +105,7 @@ const SignIn = () => {
           />
 
           <InputForm
-            placeholder="Введите ваш пароль"
+            placeholder="Write your password"
             required
             type="password"
             errorMessage={errors.password && errors.password?.message}
@@ -125,15 +125,15 @@ const SignIn = () => {
         </div>
 
         <p className="flex cursor-pointer justify-end pb-12 font-sans text-p2 text-primary-1000">
-          Востановить пароль
+          Restore your password
         </p>
         <p className="pb-12 font-sans font-normal text-black-300">
-          У вас нет аккаунта?{" "}
+          Don’t have an account?{" "}
           <NavLink
             to="/auth/sign-up"
             className="cursor-pointer text-primary-1000"
           >
-            Создайте
+            Sign up
           </NavLink>
         </p>
       </FormBody>

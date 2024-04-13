@@ -11,12 +11,9 @@ const Crumb = ({
 }) => {
   let upName = name.slice(0, 1).toUpperCase() + name.slice(1);
   const translations: { [key: string]: string } = {
-    Dashboard: "Главная",
-    "Revenue management": "Доходы",
-    "Cost management": "Расходы",
-    Customers: "Клиенты",
-    "Openbanking api": "Openbanking",
-    Settings: "Настройки",
+    Dashboard: "Home",
+    "Results table": "Results table",
+    Consultancy: "Consultancy",
   };
 
   if (Object.hasOwnProperty.call(translations, upName))

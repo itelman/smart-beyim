@@ -9,8 +9,8 @@ const LeftSideBar = () => {
   return (
     <div className="leftsidebar group">
       <div className="flex flex-col gap-[62px]">
-        <div className="ml-[2.5px] flex items-center gap-[3px]">
-          <Icon name="LogoSvg" width={30} height={30} />
+        <div className="ml-[2.5px] flex items-center gap-[1px]">
+          <Icon name="LogoSvg" width={24} height={24} />
           <span className=" hidden text-center font-headings text-subHeading3 font-bold text-[#45464E]  2xl:block">
             Beyim Analytics
           </span>

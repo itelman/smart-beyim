@@ -25,10 +25,14 @@ const FilterDate: React.FC<IFilterDate> = ({ dateFrom, handleDateChange }) => {
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
         onBlur={() => setIsDropdownOpen(false)}
       >
-        <p className="text-label1">
+        <p className="text-label1 text-black-400">
           {options.find((option) => option.value === dateFrom)?.label}
         </p>
-        <FeatherIcon icon="chevron-down" className="text-label1" size={16} />
+        <FeatherIcon
+          icon="chevron-down"
+          className="text-label1 text-black-400"
+          size={16}
+        />
       </div>
       {/*  dropdown  */}
       {isDropdownOpen && (
@@ -41,7 +45,7 @@ const FilterDate: React.FC<IFilterDate> = ({ dateFrom, handleDateChange }) => {
                 setIsDropdownOpen(false);
               }}
               className={cn(
-                `flex w-[130px] cursor-pointer items-center gap-[7px] px-5 py-[6px] text-black-300   hover:bg-primary-700 hover:text-white ${option.value === dateFrom && "bg-primary-700 text-white"}`,
+                `flex w-[130px] cursor-pointer items-center gap-[7px] px-5 py-[6px] text-black-400   hover:bg-primary-700 hover:text-white ${option.value === dateFrom && "bg-primary-700 text-white"}`,
               )}
             >
               <p className="text-label1">{option.label}</p>

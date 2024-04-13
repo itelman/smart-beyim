@@ -24,13 +24,12 @@ function App() {
           // </RequireAuth>
         }
       >
-        <Route path="" element={<Dashboard pageTitle="Главная" />} />
+        <Route path="" element={<Dashboard pageTitle="Dashboard" />} />
         <Route
           path="revenue-management"
-          element={<RevenueManagement pageTitle="Доходы" />}
+          element={<RevenueManagement pageTitle="Results table" />}
         />
-        <Route path="results" element={<Results pageTitle="Результаты" />} />
-        <Route path="chat" element={<Chat pageTitle="Чат" />} />
+        <Route path="chat" element={<Chat pageTitle="Consultancy" />} />
         {/* <Route path="settings" element={<Settings pageTitle="Настройки" />} /> */}
       </Route>
 

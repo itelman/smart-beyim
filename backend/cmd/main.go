@@ -57,14 +57,6 @@ func main() {
 		log.Error("failed to run server", err)
 	}
 	log.Error("stopped server")
-
-	// // s.StartMessage(1)
-	// answer, err := s.SendMessage(1, "can you repeat what you say")
-	// if err != nil {
-	// 	log.Error("failed send message", sl.Err(err))
-	// 	os.Exit(1)
-	// }
-	// fmt.Println(answer)
 }
 
 func setupLogger(env string) *slog.Logger {

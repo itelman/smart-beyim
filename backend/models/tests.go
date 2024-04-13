@@ -2,6 +2,16 @@ package models
 
 import "time"
 
+type Ielts struct {
+	ID         int       `json:"id"`
+	TimePassed time.Time `json:"time_passed"`
+	UserID     int
+	Reading    Test `json:"reading"`
+	Writing    Test `json:"writing"`
+	Listening  Test `json:"listening"`
+	Speaking   Test `json:"speaking"`
+}
+
 type Test struct {
 	ID         int `json:"id"`
 	UserID     int

@@ -1,6 +1,7 @@
 package repo
 
 import (
+	"database/sql"
 	"fmt"
 	"smart-beyim/models"
 	"time"
@@ -100,4 +101,14 @@ func (s *Sqlite) GetUserIELTSAverages(userID int) (avgScore float32, totalTime t
 	}
 
 	return avgScore, totalTime, totalTests, nil
+}
+
+func InsertTest(db *sql.DB, test models.Test) error {
+	// Execute the INSERT statement
+	_, err := db.Exec("INSERT INTO tests (id, user_id, test_type_id, score, feedback, time_spent, time_passed) VALUES (?, ?, ?, ?, ?, ?, ?)",
+		test.ID, test.UserID, test.TestType, test.Score, test.Feedback, test.TimeSpent, test.TimePassed)
+	if err != nil {
+		return err
+	}
+	return nil
 }

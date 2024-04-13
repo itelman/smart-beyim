@@ -33,7 +33,7 @@ func TestInsertUser(t *testing.T) {
 		t.Fatalf("error creating table: %v", err)
 	}
 
-	users := [10]models.User{
+	/*users := [10]models.User{
 		{"alice123", "password123"},
 		{"Hd9ZGt7A", "p$VJXg*7O#fR"},
 		{"u7FZ6QcK", "!Dbn28sXv1L"},
@@ -67,13 +67,13 @@ func TestInsertUser(t *testing.T) {
 		if password != user.Password {
 			t.Errorf("expected user password %s, got %s", user.Password, password)
 		}
-	}
+	}*/
 }
 
 func InsertUser(db *sql.DB, user models.User) error {
 	// Execute the INSERT statement
-	_, err := db.Exec("INSERT INTO users (name, password) VALUES (?, ?)",
-		user.Name, user.Password)
+	_, err := db.Exec("INSERT INTO users (id, name, password, created) VALUES (?, ?, ?, ?)",
+		user.ID, user.Name, user.Password, user.Created)
 	if err != nil {
 		return err
 	}

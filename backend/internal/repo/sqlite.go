@@ -58,7 +58,7 @@ func NewDB(storagePath string) (*Sqlite, error) {
 			FOREIGN KEY (reading_id) REFERENCES tests(id),
 			FOREIGN KEY (listening_id) REFERENCES tests(id),
 			FOREIGN KEY (writing_id) REFERENCES tests(id),
-			FOREIGN KEY (speaking_id) REFERENCES tests(id)git pu
+			FOREIGN KEY (speaking_id) REFERENCES tests(id)
         );`,
 	}
 

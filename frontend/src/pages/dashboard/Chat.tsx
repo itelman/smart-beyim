@@ -97,6 +97,10 @@ const Chat = ({ pageTitle }: { pageTitle: string }) => {
   };
 
   const handleDefaultMessage = () => {
+    setMessage({
+      role:"user",
+      content:"give_me_review"
+    })
     setMessages((prev)=>[...prev, {
       role:"user",
       content:"give_me_review"

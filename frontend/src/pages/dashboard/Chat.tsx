@@ -114,7 +114,10 @@ const Chat = ({ pageTitle }: { pageTitle: string }) => {
 
         <div className="sticky bottom-0 left-0">
           <div className="flex flex-grow flex-row gap-5  p-8  ">
-            <div className="flex-1 cursor-pointer rounded-lg border-2 border-primary-1000 px-4 py-[14px] backdrop-blur">
+            <div className="flex-1 cursor-pointer rounded-lg border-2 border-primary-1000 px-4 py-[14px] backdrop-blur" onClick={()=>{
+              setMessage("give_me_review")
+              handleSendMessage()
+            }}>
               <p className="mb-[5px] text-subHeading3 font-bold text-secondary-1000">
                 Review my results
               </p>
@@ -122,7 +125,10 @@ const Chat = ({ pageTitle }: { pageTitle: string }) => {
                 analyzes the results of the tests and generates reports
               </p>
             </div>
-            <div className="flex-1 cursor-pointer rounded-lg border-2 border-primary-1000 px-4 py-[14px] backdrop-blur">
+            <div className="flex-1 cursor-pointer rounded-lg border-2 border-primary-1000 px-4 py-[14px] backdrop-blur" onClick={()=>{
+              setMessage("give_me_review")
+              handleSendMessage()
+            }}>
               <p className="mb-[5px] text-subHeading3 font-bold text-secondary-1000">
                 Improve my grades
               </p>

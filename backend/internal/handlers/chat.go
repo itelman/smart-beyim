@@ -35,7 +35,20 @@ func (h *Handler) chatGET(w http.ResponseWriter, r *http.Request) {
 
 	// h.log.Debug("just messages", slog.Any("messages", messages))
 
-	responseOKChatGet(w, r, messages[1:])
+	responseOKChatGet(w, r, filterMessages(messages[1:]))
+}
+
+func filterMessages(arr []openai.ChatCompletionMessage) []openai.ChatCompletionMessage {
+	message := "give me review based"
+	n := len(message)
+	for i := range arr {
+		if arr[i].Role == "user" {
+			if len(arr[i].Content) > n && arr[i].Content[:n] == message {
+				arr[i].Content = message
+			}
+		}
+	}
+	return arr
 }
 
 func responseOKChatGet(w http.ResponseWriter, r *http.Request, messages []openai.ChatCompletionMessage) {
@@ -72,6 +85,17 @@ func (h *Handler) chatPost(w http.ResponseWriter, r *http.Request) {
 		h.log.Error("failed to convert UserID", sl.Err(err))
 		render.JSON(w, r, resp.Error("failed convert user id"))
 		return
+	}
+
+	if req.Content == "give_me_review" {
+		review, err := h.service.GetReview(userID)
+		if err != nil {
+			h.log.Error("failed to send message", sl.Err(err))
+			render.JSON(w, r, resp.Error("failed send message ai"))
+			return
+		}
+		h.log.Info(review)
+		req.Content = "give me review based on below\n" + review
 	}
 
 	answer, err := h.service.SendMessage(userID, req.Content)

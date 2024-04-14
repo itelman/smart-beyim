@@ -76,6 +76,7 @@ func (s *Sqlite) GetIeltsByUserID(userID int) ([]models.Ielts, error) {
 
 	return ieltsList, nil
 }
+
 func (s *Sqlite) GetUserIELTSAverages(userID int) (avgScore float32, totalTime time.Time, totalTests int, err error) {
 	const op = "storage.sqlite.GetUserIELTSAverages"
 

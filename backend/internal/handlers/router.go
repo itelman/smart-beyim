@@ -44,6 +44,6 @@ func (h *Handler) Router() *chi.Mux {
 	router.Post("/chat", h.chatPost)
 	router.Get("/chat", h.chatGET)
 
-	router.Get("/", h.home)
+	router.Get("/", h.homeGet)
 	return router
 }

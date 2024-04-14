@@ -29,6 +29,11 @@ func main() {
 
 	storage, err := repo.NewDB(cfg.StoragePath)
 
+	if err = storage.SeedDatabase(); err != nil {
+		log.Error("failed init database", sl.Err(err))
+		os.Exit(1)
+	}
+
 	if err != nil {
 		log.Error("failed init database", sl.Err(err))
 		os.Exit(1)

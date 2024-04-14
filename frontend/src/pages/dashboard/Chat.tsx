@@ -74,6 +74,8 @@ const Chat = ({ pageTitle }: { pageTitle: string }) => {
         content:answer
       }
       setMessages((prev)=>[...prev, newMessage ])
+      scrollToBottom();
+
     }    
 
     } catch (error) {

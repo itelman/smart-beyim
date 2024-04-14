@@ -19,3 +19,4 @@ go run cmd/main.go
 ## Author
 Zhenis
 Abay
+Iyliyas

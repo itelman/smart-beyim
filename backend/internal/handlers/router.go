@@ -31,11 +31,11 @@ func (h *Handler) Router() *chi.Mux {
 
 	// Define CORS options
 	corsOptions := cors.Options{
-		AllowedOrigins:   []string{"http://localhost:5173"}, // Add your frontend URL here
+		AllowedOrigins:   []string{"http://localhost:5173"}, 
 		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type"},
 		AllowCredentials: true,
-		MaxAge:           300, // Maximum age for preflight requests
+		MaxAge:           300, 
 	}
 
 	// Use CORS middleware

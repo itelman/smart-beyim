@@ -80,29 +80,29 @@ func NewDB(storagePath string) (*Sqlite, error) {
 	// Uncomment and modify the default test types insertion as needed
 	// Example of inserting default test types using transaction
 
-	tx, err := db.Begin()
-	if err != nil {
-		return nil, fmt.Errorf("%s: transaction start error: %w", op, err)
-	}
-	defer tx.Rollback() // Safe rollback in case of error
+	// tx, err := db.Begin()
+	// if err != nil {
+	// 	return nil, fmt.Errorf("%s: transaction start error: %w", op, err)
+	// }
+	// defer tx.Rollback() // Safe rollback in case of error
 
-	stmt, err := tx.Prepare("INSERT INTO test_type (name) VALUES (?)")
-	if err != nil {
-		return nil, fmt.Errorf("%s: prepare insert error: %w", op, err)
-	}
-	defer stmt.Close()
+	// stmt, err := tx.Prepare("INSERT INTO test_type (name) VALUES (?)")
+	// if err != nil {
+	// 	return nil, fmt.Errorf("%s: prepare insert error: %w", op, err)
+	// }
+	// defer stmt.Close()
 
-	defaultTests := []string{"Reading", "Listening", "Writing", "Speaking"}
-	for _, category := range defaultTests {
-		_, err = stmt.Exec(category)
-		if err != nil {
-			return nil, fmt.Errorf("%s: insert default test type error: %w", op, err)
-		}
-	}
+	// defaultTests := []string{"Reading", "Listening", "Writing", "Speaking"}
+	// for _, category := range defaultTests {
+	// 	_, err = stmt.Exec(category)
+	// 	if err != nil {
+	// 		return nil, fmt.Errorf("%s: insert default test type error: %w", op, err)
+	// 	}
+	// }
 
-	if err = tx.Commit(); err != nil {
-		return nil, fmt.Errorf("%s: transaction commit error: %w", op, err)
-	}
+	// if err = tx.Commit(); err != nil {
+	// 	return nil, fmt.Errorf("%s: transaction commit error: %w", op, err)
+	// }
 
 	return &Sqlite{db: db}, nil
 }

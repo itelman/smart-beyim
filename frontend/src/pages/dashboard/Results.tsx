@@ -12,7 +12,7 @@ import { taskSchema } from "../../components/table/data/schema";
 import axios from "axios";
 import {IeltsTest, IeltsSkillTest} from "../../types/ieltstests"
 
-const RevenueManagement = ({ pageTitle }: { pageTitle: string }) => {
+const Results = ({ pageTitle }: { pageTitle: string }) => {
   useEffect(() => {
     document.title = pageTitle;
   }, [pageTitle]);
@@ -64,4 +64,4 @@ const RevenueManagement = ({ pageTitle }: { pageTitle: string }) => {
   );
 };
 
-export default RevenueManagement;
+export default Results;

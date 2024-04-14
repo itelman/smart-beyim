@@ -53,7 +53,7 @@ const SummaryAvgScore: React.FC<ISummaryCardProps> = ({
 
   return (
     <SummaryCard
-      iconName={salesSummary.iconName}
+      iconName={"TwoUserSvg"}
       onDateChange={handleDateChange}
       dateFrom={dateFrom}
       data={salesSummary.data}

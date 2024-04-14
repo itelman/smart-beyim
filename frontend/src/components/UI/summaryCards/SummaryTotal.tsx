@@ -46,7 +46,7 @@ const SummaryTotal: React.FC<ISummaryCardProps> = ({
 
   return (
     <SummaryCard
-      iconName={salesSummary.iconName}
+      iconName={"LetterSvg"}
       onDateChange={handleDateChange}
       dateFrom={dateFrom}
       data={salesSummary.data}

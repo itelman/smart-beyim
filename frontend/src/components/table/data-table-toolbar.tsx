@@ -22,19 +22,8 @@ export function DataTableToolbar<TData>({
   return (
     <div className="flex items-center justify-between overflow-x-auto">
       <div className="flex flex-1 items-center space-x-2">
-        <Input
-          placeholder="Найти по назначению..."
-          value={
-            (table.getColumn("payment_purpose")?.getFilterValue() as string) ??
-            ""
-          }
-          onChange={(event) =>
-            table
-              .getColumn("payment_purpose")
-              ?.setFilterValue(event.target.value)
-          }
-          className="h-8 w-[150px] lg:w-[250px]"
-        />
+        <p className="text-subHeading3 font-medium">IELTS Results Table</p>
+
         {table.getColumn("status") && (
           <DataTableFacetedFilter
             column={table.getColumn("status")}

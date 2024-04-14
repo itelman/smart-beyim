@@ -41,12 +41,21 @@ const Dashboard = ({ pageTitle }: { pageTitle: string }) => {
     <div className="grid grid-cols-1 gap-[19px] md:grid-cols-3 ">
       {/* Sales Summary Card */}
 
-      <SummaryAvgScore className="sm:col-span-1" transactions={transactions} />
+      <SummaryAvgScore
+        className=" col-span-3 md:col-span-1"
+        transactions={transactions}
+      />
       {/* Customers Summary Card */}
-      <SummaryAvgTime className="sm:col-span-1" transactions={transactions} />
+      <SummaryAvgTime
+        className="col-span-3 md:col-span-1"
+        transactions={transactions}
+      />
 
       {/* Orders Summary Card */}
-      <SummaryTotal className="sm:col-span-1" transactions={transactions} />
+      <SummaryTotal
+        className="col-span-3 md:col-span-1"
+        transactions={transactions}
+      />
 
       {/* Charts and Additional Cards */}
       {/* Adjusting for a 2-column layout on md screens and using available cols on larger screens */}

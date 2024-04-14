@@ -19,10 +19,24 @@ const TopNav = () => {
         </h6>
         <div className="flex gap-5">
           <div className="flex items-center gap-[20px]">
-            <div className="flex items-center gap-[20px] rounded-[8px] border-none bg-secondary-200 px-[6px] py-[12px] sm:px-[12px] sm:py-[12px]">
-              <p className="my-[1.5px] hidden text-p2 sm:block  ">
-                Nanny’s Shop
-              </p>
+            <Icon
+              name="NotificationSvg"
+              className="cursor-pointer"
+              width="24"
+              height="24"
+            />
+            <div className="flex items-center gap-[20px] rounded-xl border  px-[12px] py-[3px] sm:px-[12px] sm:py-[6px]">
+              <img
+                src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                width="32px"
+                height="32px"
+                className="cursor-pointer rounded-full "
+                alt=""
+              />
+              <div>
+                <p className="my-[1.5px] hidden text-p2 sm:block  ">Arman B.</p>
+                <p className="text-label1 text-secondary-500">Student</p>
+              </div>
               <Icon
                 name="ChevronDownSvg"
                 className="mx-[5px] my-[7.5] cursor-pointer"
@@ -30,19 +44,6 @@ const TopNav = () => {
                 height="8"
               />
             </div>
-            <Icon
-              name="NotificationSvg"
-              className="cursor-pointer"
-              width="20"
-              height="20"
-            />
-            <img
-              src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-              width="32px"
-              height="32px"
-              className="cursor-pointer rounded-[8px] "
-              alt=""
-            />
           </div>
         </div>
       </div>

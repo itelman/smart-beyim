@@ -108,29 +108,50 @@ const Chat = ({ pageTitle }: { pageTitle: string }) => {
           )}
           <div ref={dummyMessageLastRef}></div>
         </div>
-        <div className="sticky bottom-0 left-0 flex flex-row justify-between gap-2.5   px-8 py-4">
-          <input
-            type="text"
-            placeholder="Write message..."
-            className="w-full rounded-xl border border-gray-300 py-3 pl-5 pr-3 text-subHeading3  outline-none focus:border-primary-1000"
-            value={message}
-            onChange={(e) => {
-              setMessage(e.target.value);
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                handleSendMessage();
-              }
-            }}
-            // ... rest of the props
-          />
-          <button
-            type="button"
-            className="flex flex-row items-center gap-2.5 rounded-xl bg-primary-1000 px-5 py-2.5 text-white"
-            onClick={handleSendMessage}
-          >
-            <FaPaperPlane className="h-5 w-5 text-white" />
-          </button>
+
+        <div className="sticky bottom-0 left-0">
+          <div className="flex flex-grow flex-row gap-5  p-8  ">
+            <div className="flex-1 cursor-pointer rounded-lg border-2 border-primary-1000 px-4 py-[14px] backdrop-blur">
+              <p className="mb-[5px] text-subHeading3 font-bold text-secondary-1000">
+                Review my results
+              </p>
+              <p className="text-p1 text-secondary-700">
+                analyzes the results of the tests and generates reports
+              </p>
+            </div>
+            <div className="flex-1 cursor-pointer rounded-lg border-2 border-primary-1000 px-4 py-[14px] backdrop-blur">
+              <p className="mb-[5px] text-subHeading3 font-bold text-secondary-1000">
+                Improve my grades
+              </p>
+              <p className="text-p1 text-secondary-700">
+                provide the ways to improve my grades
+              </p>
+            </div>
+          </div>
+          <div className=" flex flex-row justify-between gap-2.5 bg-primary-100   px-8 pb-4 pt-2">
+            <input
+              type="text"
+              placeholder="Write message..."
+              className="w-full rounded-xl border border-gray-300 py-3 pl-5 pr-3 text-subHeading3  outline-none focus:border-primary-1000"
+              value={message}
+              onChange={(e) => {
+                setMessage(e.target.value);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleSendMessage();
+                }
+              }}
+              // ... rest of the props
+            />
+            <button
+              type="button"
+              className="flex flex-row items-center gap-2.5 rounded-xl bg-primary-1000 px-5 py-2.5 text-white"
+              onClick={handleSendMessage}
+            >
+              <FaPaperPlane className="h-5 w-5 text-white" />
+            </button>
+          </div>
         </div>
       </div>
     </>

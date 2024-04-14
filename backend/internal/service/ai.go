@@ -10,6 +10,7 @@ import (
 	"github.com/sashabaranov/go-openai"
 )
 
+const MaxTokenLimit = 15706
 const startPromt = "you are like my teacher in IELTS tell my where my problem"
 
 func (s *Service) GetMessages(userID int) ([]openai.ChatCompletionMessage, error) {
@@ -48,12 +49,18 @@ func (s *Service) SendMessage(userID int, content string) (string, error) {
 	if err != nil {
 		if errors.Is(err, models.ErrNoRecord) {
 			if err = s.StartMessage(userID); err != nil {
-				return s.SendMessage(userID, content)
+				return "", err
 			}
 		} else {
 			return "", err
 		}
 	}
+
+	// Check if the request exceeds the token limit and adjust if necessary
+	if tokenCount(req.Messages)+len(content) > MaxTokenLimit { // MaxTokenLimit is a constant, e.g., 16384 for GPT-3
+		req.Messages = trimMessages(req.Messages, len(content))
+	}
+
 	answer, err := s.ai.Message(content, req)
 	if err != nil {
 		return "", err
@@ -68,6 +75,26 @@ func (s *Service) SendMessage(userID int, content string) (string, error) {
 	}
 
 	return answer, nil
+}
+
+// trimMessages removes messages from the beginning until the total token count + new content is under the limit
+func trimMessages(messages []openai.ChatCompletionMessage, newContentLen int) []openai.ChatCompletionMessage {
+	for len(messages) > 0 {
+		if tokenCount(messages)+newContentLen <= MaxTokenLimit {
+			break
+		}
+		messages = messages[1:] // remove the oldest message
+	}
+	return messages
+}
+
+// tokenCount estimates the number of tokens in the messages
+func tokenCount(messages []openai.ChatCompletionMessage) int {
+	count := 0
+	for _, msg := range messages {
+		count += len(msg.Content) // Simplified token counting
+	}
+	return count
 }
 
 func (s *Service) GetReview(userID int) (string, error) {

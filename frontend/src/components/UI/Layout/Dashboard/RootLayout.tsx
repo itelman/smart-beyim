@@ -8,12 +8,11 @@ const RootLayout = () => (
       <LeftSideBar />
       <main className="flex-1 ">
         <Topbar />
-        <section className="main-container">
-          <div className="w-full max-w-6xl">
-            <Outlet />
-          </div>
+        <section className="main-container ">
+          {/* <div className="w-full max-w-6xl flex flex-col"> */}
+            <Outlet   />
+          {/* </div> */}
         </section>
-        <BottomBar />
       </main>
     </div>
   </>

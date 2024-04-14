@@ -1,9 +1,4 @@
-//  import <HTMLDivElement> to the ref type
-import React, { PureComponent, useState } from "react";
-
-import FeatherIcon from "feather-icons-react";
-import { ICustomBarChartData } from "../UI/assets/index";
-import { cn } from "../../utils/utils";
+import React, { useState } from "react";
 import {
   BarChart,
   Bar,
@@ -14,28 +9,55 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import FeatherIcon from "feather-icons-react";
+import { cn, getDateRange } from "../../utils/utils";
 import FilterDate from "../UI/FilterDate";
+import { IeltsTest } from "../../types/ieltstests";
 
 interface CustomBarChartProps {
-  data: ICustomBarChartData[];
+  tests: IeltsTest[];
 }
 
 interface ICustomBarChartProps
   extends CustomBarChartProps,
     React.HTMLAttributes<HTMLDivElement> {}
 
-const CustomBarChart: React.FC<ICustomBarChartProps> = ({ data, ...props }) => {
+const CustomBarChart: React.FC<ICustomBarChartProps> = ({ tests, className }) => {
   const [dateFrom, setDateFrom] = useState<string>("thisWeek");
 
   const handleDateChange = (value: string) => {
     setDateFrom(value);
   };
 
+  const [startDate, endDate] = getDateRange(dateFrom);
+
+  const filterTestsDate = tests.filter((test) => {
+    return (
+      new Date(test.writing.time_passed).getTime() >= startDate.getTime() &&
+      new Date(test.writing.time_passed).getTime() <= endDate.getTime()
+    );
+  });
+
+  // Initialize scores
+  const skills = ['reading', 'writing', 'listening', 'speaking'];
+  const skillAverages = skills.reduce((acc, skill) => {
+    acc[skill] = filterTestsDate.reduce((total, test) => total + test[skill].score, 0) / filterTestsDate.length || 0;
+    return acc;
+  }, {});
+
+  // Prepare data for bar chart
+  const data = skills.map(skill => ({
+    name: skill.charAt(0).toUpperCase(), // Capitalize first letter
+    score: skillAverages[skill]
+  }));
+
+
+
   return (
     <div
       className={cn(
         "rounded-[12px] bg-white px-[20px] py-[21px]",
-        props.className,
+        className,
       )}
     >
       <header className="mb-[36px] flex items-center justify-between">
@@ -56,7 +78,7 @@ const CustomBarChart: React.FC<ICustomBarChartProps> = ({ data, ...props }) => {
           <XAxis
             axisLine={false}
             tickLine={false}
-            dataKey="short"
+            dataKey="name"
             padding={{ left: 23, right: 23 }}
             dy={19}
             fontSize={20}
@@ -64,6 +86,7 @@ const CustomBarChart: React.FC<ICustomBarChartProps> = ({ data, ...props }) => {
           <YAxis
             axisLine={false}
             tickLine={false}
+            domain={[0, 9]}
             fontSize={20}
             dx={-10}
             width={30}

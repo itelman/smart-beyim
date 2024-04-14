@@ -48,7 +48,7 @@ const Dashboard = ({ pageTitle }: { pageTitle: string }) => {
   console.log(ieltsList)
 
   return (
-    <div className="grid grid-cols-1 gap-[19px] md:grid-cols-3 ">
+    <div className="grid grid-cols-1 gap-[19px] md:grid-cols-3  w-full max-w-6xl flex flex-col">
       {/* Sales Summary Card */}
 
       <SummaryAvgScore
@@ -78,7 +78,7 @@ const Dashboard = ({ pageTitle }: { pageTitle: string }) => {
 
       <CustomBarChart
         className="col-span-3 lg:col-span-1"
-        data={CustomBarChartData}
+        tests={ieltsList}
       />
       {/* </div> */}
 

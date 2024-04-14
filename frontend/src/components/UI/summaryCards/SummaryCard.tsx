@@ -52,7 +52,7 @@ const SummaryCard: React.FC<ISummaryCardProps> = ({
               {item.label}
             </p>
             <div className="flex items-center gap-[7.5px]">
-              <p className="text-subHeading2 font-medium">{item.value}</p>
+              <p className="text-subHeading2 font-medium">{item.value ? item.value : 0 }</p>
             </div>
           </div>
         ))}

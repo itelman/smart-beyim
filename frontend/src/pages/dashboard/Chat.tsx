@@ -104,7 +104,7 @@ const Chat = ({ pageTitle }: { pageTitle: string }) => {
 
   return (
     <>
-      <div className="relative box-border flex h-full flex-col">
+      <div className="relative box-border flex flex-grow flex-col w-full max-w-6xl flex flex-col">
         <div className="flex flex-grow flex-col gap-5  p-8  ">
           {messages.map((message)=>
           <MessageBlock message={message} />

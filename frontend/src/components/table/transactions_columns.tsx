@@ -1,111 +1,54 @@
-"use client";
+// Typescript interface for IELTS skill
+interface IeltsSkill {
+  id: number;
+  UserID: number;
+  test_type: string;  // Changed to string as per your update
+  score: number;
+  feedback: string;
+  time_spent: string;
+  time_passed: string;
+}
 
+// Import necessary components and types
 import { ColumnDef } from "@tanstack/react-table";
-
-import { Checkbox } from "../shadcn/ui/checkbox";
-
-import { Task } from "./data/schema";
 import { DataTableColumnHeader } from "./data-table-column-header";
-import { DataTableRowActions } from "./data-table-row-actions";
 
-export const columns: ColumnDef<Task>[] = [
+export const columns: ColumnDef<IeltsSkill>[] = [
   {
-    accessorKey: "document_id",
+    accessorKey: "test_type",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="№ Документа " />
+      <DataTableColumnHeader column={column} title="Test Type" />
     ),
-    cell: ({ row }) => (
-      <div className="w-[120px]">{row.getValue("document_id")}</div>
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
-
-  {
-    accessorKey: "operation_date",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Дата операции" />
-    ),
-    cell: ({ row }) => (
-      <div className="w-[120px]">{row.getValue("operation_date")}</div>
-    ),
+    cell: ({ row }) => <div className="w-[120px]">{row.getValue("test_type")}</div>,
   },
   {
-    accessorKey: "debet",
+    accessorKey: "score",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Дебет" />
+      <DataTableColumnHeader column={column} title="Score" />
     ),
-    cell: ({ row }) => <div className="w-[120px]">{row.getValue("debet")}</div>,
+    cell: ({ row }) => <div className="w-[120px]">{row.getValue("score").toFixed(2)}</div>,
   },
   {
-    accessorKey: "credit",
+    accessorKey: "feedback",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Кредит" />
+      <DataTableColumnHeader column={column} title="Feedback" />
     ),
-    cell: ({ row }) => (
-      <div className="w-[120px]">{row.getValue("credit")}</div>
-    ),
+    cell: ({ row }) => <div className="w-[200px]">{row.getValue("feedback")}</div>,
+    enableSorting:false
   },
   {
-    accessorKey: "beneficiary_name",
+    accessorKey: "time_passed",
     header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title="Наименование бенефициара/отправителя денег"
-      />
+      <DataTableColumnHeader column={column} title="Time Passed" />
     ),
-    cell: ({ row }) => (
-      <div className="w-[250px]">{row.getValue("beneficiary_name")}</div>
-    ),
-    enableSorting: false,
+    cell: ({ row }) => <div className="w-[180px]">{new Date(row.getValue("time_passed")).toLocaleDateString()}</div>,
   },
   {
-    accessorKey: "beneficiary_bank_bic",
+    accessorKey: "time_spent",
     header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title="БИК банка бенефициара (отправителя денег)"
-      />
+      <DataTableColumnHeader column={column} title="Time Spent" />
     ),
-    cell: ({ row }) => (
-      <div className="w-[250px]">{row.getValue("beneficiary_bank_bic")}</div>
-    ),
-    enableSorting: false,
-  },
-  {
-    accessorKey: "beneficiary_iic",
-    header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title="ИИК бенефициара/отправителя денег"
-      />
-    ),
-    cell: ({ row }) => (
-      <div className="w-[250px]">{row.getValue("beneficiary_iic")}</div>
-    ),
-    enableSorting: false,
-  },
-  {
-    accessorKey: "knp",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="КНП" />
-    ),
-    cell: ({ row }) => <div className="w-[120px]">{row.getValue("knp")}</div>,
-    enableSorting: false,
-  },
-  {
-    accessorKey: "payment_purpose",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Назначение платежа" />
-    ),
-    cell: ({ row }) => (
-      <div className="w-[250px]">{row.getValue("payment_purpose")}</div>
-    ),
-    enableSorting: false,
-  },
-
-  // {
-  //   id: "actions",
-  //   cell: ({ row }) => <DataTableRowActions row={row} />,
-  // },
+    cell: ({ row }) => <div className="w-[180px]">{new Date(row.getValue("time_spent")).toLocaleTimeString()}</div>,
+  }
 ];
+

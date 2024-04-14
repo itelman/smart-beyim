@@ -68,16 +68,19 @@ func NewDB(storagePath string) (*Sqlite, error) {
 			request_data TEXT NOT NULL,
 			FOREIGN KEY (user_id) REFERENCES users(id)			
 		);`,
-		`CREATE TABLE IF NOT EXISTS teachears (
-            id INTEGER PRIMARY KEY,
-            name TEXT NOT NULL UNIQUE,
-            password TEXT NOT NULL,
-            created TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        );`,
+		`CREATE TABLE IF NOT EXISTS teachers (
+			id INTEGER PRIMARY KEY,
+			name TEXT NOT NULL UNIQUE,
+			password TEXT NOT NULL,
+			created TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+		);`,
 		`CREATE TABLE IF NOT EXISTS teacher_user (
-            teacher_id INTEGER,
-
-        );`,
+			teacher_id INTEGER,
+			user_id INTEGER,
+			PRIMARY KEY (teacher_id, user_id),
+			FOREIGN KEY (teacher_id) REFERENCES teachers(id),
+			FOREIGN KEY (user_id) REFERENCES users(id)
+		);`,
 	}
 
 	for _, query := range tableCreationQueries {

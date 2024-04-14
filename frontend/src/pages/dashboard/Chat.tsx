@@ -38,8 +38,11 @@ const Chat = ({ pageTitle }: { pageTitle: string }) => {
       const responce = await axios.get("http://localhost:8082/chat?user_id=1")
       const messages = responce.data.Messages
 
+      console.log(messages)
 
-      setMessages(messages)
+      if(messages) {
+        setMessages(messages)
+      }
     } catch (error:any) {
       console.log(error.message)
     }

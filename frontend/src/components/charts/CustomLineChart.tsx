@@ -19,10 +19,10 @@ import { cn } from "../../utils/utils";
 
 import FilterDate from "../UI/FilterDate";
 
-import { ICustomLineChartData } from "../UI/assets";
+import {IeltsSkillTest, IeltsTest} from "../../types/ieltstests"
 
 interface CustomLineChartProps {
-  data: ICustomLineChartData[];
+  tests: IeltsTest[];
 }
 
 interface ICustomLineChartProps
@@ -30,20 +30,36 @@ interface ICustomLineChartProps
     React.HTMLAttributes<HTMLDivElement> {}
 
 const CustomLineChart: React.FC<ICustomLineChartProps> = ({
-  data,
+  tests,
   ...props
 }) => {
-  const [dateFrom, setDateFrom] = useState<string>("thisWeek");
   const [currentSkill, setCurrentSkill] = useState<string>("Reading");
 
   const options = ["Reading", "Listening", "Speaking", "Writing"];
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const minAxisYInterval =
-    data.reduce((min, p) => (p.score < min ? p.score : min), data[0].score) -
-    0.5;
 
-  const handleDateChange = (value: string) => {
-    setDateFrom(value);
+  const currentSkillTests = tests.map((test) => test[currentSkill.toLowerCase()]);
+
+  const modifiedSkillTests = currentSkillTests.map((test)=>({...test, time_passed:test.time_passed.split("T")[0], score:Math.round(test.score * 2) / 2}))
+  
+  console.log(modifiedSkillTests)
+  
+
+  // let minAxisYInterval = currentSkillTests.length > 0 &&
+  // currentSkillTests.reduce((min, testSkill) => (testSkill.score < min ? testSkill.score : min), currentSkillTests[0].score) -
+  //   0.5;
+
+  const minAxisYInterval = modifiedSkillTests.length > 0
+  ? modifiedSkillTests.reduce((min, testSkill) => Math.min(min, testSkill.score), modifiedSkillTests[0].score) - 0.5
+  : 0;
+
+  // const scores = currentSkillTests.map((test) => test.score);
+  // const minAxisYInterval = Math.min(...scores) - 0.5 > 0 ? Math.min(...scores) - 0.5 : 0;
+
+
+
+  const handleCurrentSkill = (value: string) => {
+    setCurrentSkill(value);
   };
 
   return (
@@ -75,7 +91,7 @@ const CustomLineChart: React.FC<ICustomLineChartProps> = ({
                 <div
                   key={option}
                   onClick={() => {
-                    handleDateChange(option);
+                    handleCurrentSkill(option);
                     setIsDropdownOpen(false);
                   }}
                   className={cn(
@@ -94,7 +110,7 @@ const CustomLineChart: React.FC<ICustomLineChartProps> = ({
         <LineChart
           width={500}
           height={300}
-          data={data}
+          data={modifiedSkillTests}
           margin={{
             top: 5,
             right: 30,
@@ -104,7 +120,7 @@ const CustomLineChart: React.FC<ICustomLineChartProps> = ({
         >
           <CartesianGrid strokeDasharray="3 3" />
           {/* <CartesianAxis axisLine={true} /> */}
-          <XAxis dataKey="date" axisLine={false} dy={20} tickLine={false} />
+          <XAxis dataKey="time_passed" axisLine={false} dy={20} tickLine={false} />
           <YAxis
             // interval={"preserveStart"}
             domain={[minAxisYInterval, 9]}

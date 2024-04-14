@@ -2,6 +2,8 @@ package service
 
 import (
 	"encoding/json"
+	"errors"
+	"smart-beyim/models"
 
 	"github.com/sashabaranov/go-openai"
 )
@@ -40,7 +42,13 @@ func serializeRequest(req *openai.ChatCompletionRequest) (string, error) {
 func (s *Service) SendMessage(userID int, content string) (string, error) {
 	req, err := s.repo.GetRequestByUserID(userID)
 	if err != nil {
-		return "", err
+		if errors.Is(err, models.ErrNoRecord) {
+			if err = s.StartMessage(userID); err != nil {
+				return s.SendMessage(userID, content)
+			}
+		} else {
+			return "", err
+		}
 	}
 	answer, err := s.ai.Message(content, req)
 	if err != nil {

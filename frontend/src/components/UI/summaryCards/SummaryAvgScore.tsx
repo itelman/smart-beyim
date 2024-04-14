@@ -1,15 +1,15 @@
 import React from "react";
 import { dataSummary } from "../assets";
-import { ITransaction } from "../../../types/transactions";
+import { IeltsTest, IeltsSkillTest } from "../../../types/ieltstests";
 import SummaryCard from "./SummaryCard";
 import { useState } from "react";
 import { getDateRange } from "../../../utils/utils";
 interface ISummaryCardProps extends React.HTMLAttributes<HTMLDivElement> {
-  transactions: ITransaction[];
+  tests: IeltsTest[];
 }
 
 const SummaryAvgScore: React.FC<ISummaryCardProps> = ({
-  transactions,
+  tests,
   className,
 }) => {
   //  intitial state for the filterDateRange is last 7 days, it should be a today date minus 7 days
@@ -23,23 +23,33 @@ const SummaryAvgScore: React.FC<ISummaryCardProps> = ({
 
   const [startDate, endDate] = getDateRange(dateFrom);
 
-  const filterTransactions = transactions.filter((transaction) => {
+  const filterFullTests = tests.filter((test) => (test.reading && test.listening && test.speaking && test.writing))
+
+  const filterTestsDate = filterFullTests.filter((test) => {
     return (
-      new Date(transaction.date).getTime() > startDate.getTime() &&
-      new Date(transaction.date).getTime() < endDate.getTime()
+      new Date(test.writing.time_passed).getTime() > startDate.getTime() &&
+      new Date(test.writing.time_passed).getTime() < endDate.getTime()
     );
   });
 
-  const totalSales = filterTransactions.reduce((acc, transaction) => {
-    return acc + transaction.credit;
+  const totalScoreTests = filterTestsDate.reduce((acc, test) => {
+    return acc + (test.listening.score + test.reading.score + test.speaking.score + test.writing.score)/4 ;
   }, 0);
 
-  const transactionsVolume = filterTransactions.length;
+  console.log(filterTestsDate)
+
+  const testsVolume = filterTestsDate.length;
+
+  const avgScore = totalScoreTests / testsVolume
+
+  const avgScoreFormated =  Math.round(avgScore*100)/100;
 
   const salesSummary = {
     ...dataSummary.salesSummary,
-    data: [{ label: "Average score", value: totalSales, valueCurrency: "тг" }],
+    data: [{ label: "Average score", value: avgScoreFormated }],
   };
+
+  
 
   return (
     <SummaryCard
